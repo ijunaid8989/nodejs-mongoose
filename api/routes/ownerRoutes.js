@@ -5,4 +5,8 @@ module.exports = function(app) {
   app
     .route('/owner/signup')
     .post(ownerCtrl.create_an_owner);
+
+  app
+    .route('/owner/signin')
+    .post(ownerCtrl.sign_owner_in)
 };
