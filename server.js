@@ -2,7 +2,7 @@ var express    = require('express'),
     app        = express(),
     port       = process.env.PORT || 3000,
     mongoose   = require('mongoose'),
-    Owner       = require('./api/models/ownerModel'),
+    Owner      = require('./api/models/ownerModel'),
     bodyParser = require('body-parser');
   
 mongoose.Promise = global.Promise;

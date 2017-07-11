@@ -4,7 +4,9 @@ var mongoose = require('mongoose'),
     Owner    = mongoose.model('Owners');
 
 exports.create_an_owner = function(req, res) {
+
   console.log(req.body);
+
   var newOwner = new Owner(req.body);
   newOwner.save(function(err, owner) {
     console.log(req.body);
