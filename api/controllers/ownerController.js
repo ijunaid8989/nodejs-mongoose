@@ -7,11 +7,35 @@ exports.create_an_owner = function(req, res) {
 
   console.log(req.body);
 
+  // validation
+
+  var password = req.body.password;
+  var email = req.body.email;
+
+  if (password.length <= 5) { return res.json({message: "Password should be greater than 5 characters."}); }
+
   var newOwner = new Owner(req.body);
+
   newOwner.save(function(err, owner) {
+
     console.log(req.body);
-    if (err)
-      res.send(err);
+
+    if (err) {
+      switch (err.name) {
+        case 'ValidationError':
+          switch (err.errors.email.message) {
+            case 'exists':
+              res.json({message: "Email already in use."});
+              break;
+          }
+        break;
+        default:
+          res.send("Something went wrong");
+      }
+    }
+
+    // if (err)
+    //   res.send(err);
     res.json(owner);
   });
 };

@@ -12,12 +12,18 @@ var ownerSchema = new Schema({
     trim: true,
     required: true,
     index: { 
-      unique: true 
+      unique: true
     }
   },
   password: {
     type: String,
     required: true
+    // validate: {
+    //   validator: function(password) {
+    //     return password.length > 5;
+    //   },
+    //   message: '{VALUE} should be greater than 5 characters!'
+    // },
   },
   is_owner: {
     type: Boolean,
@@ -46,11 +52,16 @@ var ownerSchema = new Schema({
   }
 });
 
-ownerSchema.path('password').validate(function(code) {
-  return code && code.length > 5;
-}, 'Password must be greater than 5 character.');
+ownerSchema.path('email').validate(function(value, done) {
+    this.model('Owners').count({ email: value }, function(err, count) {
+        if (err) {
+            return done(err);
+        }
+        // If `count` is greater than zero, "invalidate"
+        done(!count);
+    });
+}, 'exists');
 
-ownerSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
 
 ownerSchema.pre('save', function(next) {
     var owner = this;
