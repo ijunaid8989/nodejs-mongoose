@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 
 exports.create_an_owner = function(req, res) {
 
+
   console.log(req.body);
 
   // validation
