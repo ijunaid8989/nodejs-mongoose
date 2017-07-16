@@ -8,10 +8,10 @@ var imageSchema = new Schema({
     type: String
   },
   bike: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Bikes'
   },
-  type: {
+  _type: {
     type: String,
     enum: ['COVER', 'NORMAL'],
     default: 'NORMAL'

@@ -8,8 +8,9 @@ var bikeSchema = new Schema({
     required: [true, 'Bike name cannot be blank.']
   },
   owner: {
-    type: Schema.ObjectId,
-    ref: 'Owners'
+    type: Schema.Types.ObjectId,
+    ref: 'Owners',
+    required: [true, 'Owner cannot be blank.']
   },
   rent_per_day: {
     type: Number,
@@ -26,6 +27,14 @@ var bikeSchema = new Schema({
   licence_number: {
     type: String,
     required: [true, 'Licence Number cannot be blank.']
+  },
+  created_at: {
+    type: Date,
+    default: Date.now
+  },
+  updated_at: {
+    type: Date,
+    default: Date.now
   }
 });
 
