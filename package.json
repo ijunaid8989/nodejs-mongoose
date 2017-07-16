@@ -12,6 +12,8 @@
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "jquery": "^3.2.1",
+    "jsdom": "^11.1.0",
     "mongoose": "^4.11.1",
     "mongoose-unique-validator": "^1.0.5"
   }
