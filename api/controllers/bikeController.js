@@ -35,21 +35,19 @@ exports.create_a_bike = function(req, res) {
       return res.json({message: throwErrors});
     }
 
+    if (newImageParams) {
+      for (var i = newImageParams.length - 1; i >= 0; i--) {
+        const image = Object.assign(newImageParams[i], {bike: bike._id});
+        var newImage = new Image(image);
+        allImages.push(image);
+        newImage.save(function(err, image){
+          console.log(image);
+          console.log(allImages);
+        });
+      }
+    }
 
-    // add images for bikes
-    allImages = newImageParams.map( function (image) {
-      // console.log(Object.assign(image, {bike: bike._id}));
-      var newImage = new Image(Object.assign(image, {bike: bike._id}));
-      newImage.save(function(err, image){
-        console.log(image);
-        return image;
-        // console.log(image);
-        // allImages.push(image);
-        // console.log(allImages);
-      });
-    });
-
-    res.json({bike: bike, images: allImages });
+    res.json({bike: bike, images: allImages});
   });
 };
 

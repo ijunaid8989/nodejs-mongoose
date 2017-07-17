@@ -12,6 +12,14 @@ var bikeSchema = new Schema({
     ref: 'Owners',
     required: [true, 'Owner cannot be blank.']
   },
+  hidden: {
+    type: Boolean,
+    default: false
+  },
+  booked: {
+    type: Boolean,
+    default: false
+  },
   rent_per_day: {
     type: Number,
     required: [true, 'Rent Per Day cannot be blank.']
