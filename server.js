@@ -8,7 +8,7 @@ var express    = require('express'),
     bodyParser = require('body-parser');
   
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/invisionapp'); 
+mongoose.connect(process.env.DBURL || 'mongodb://localhost/invisionapp'); 
 
 
 app.use(bodyParser.json());
