@@ -9,11 +9,22 @@ exports.create_an_owner = function(req, res) {
   console.log(req.body);
 
   // validation
-
+  var auth_type = req.body.auth_type;
+  var auth_token = req.body.auth_token;
   var password = req.body.password;
   var email = req.body.email;
 
-  if (password.length <= 5) { return res.json({message: "Password should be greater than 5 characters."}); }
+  // if (true) {} else {}
+
+  if (auth_type && auth_type != "LOCAL") {
+    if (!auth_token) {
+      return res.json({message: "No Auth Token."});
+    }
+    var newOwner = new Owner({email: email, auth_type: auth_type, auth_token: auth_token});
+  } else {
+    if (password.length <= 5) { return res.json({message: "Password should be greater than 5 characters."}); }
+    var newOwner = new Owner(req.body);
+  }
 
   var newOwner = new Owner(req.body);
 

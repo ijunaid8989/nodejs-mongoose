@@ -17,7 +17,6 @@ var ownerSchema = new Schema({
   },
   password: {
     type: String,
-    required: true
     // validate: {
     //   validator: function(password) {
     //     return password.length > 5;
