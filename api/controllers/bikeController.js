@@ -62,5 +62,18 @@ exports.list_all_bikes = function(req, res) {
 
   Bike.find({owner: owner_id}, function(err, bikes){
     console.log(bikes);
+    res.json({ results: bikes });
+  });
+};
+
+exports.edit_a_bike = function(req, res) {
+  console.log(req.params.id)
+
+  var owner_id = req.params.id,
+      bike_id  = req.params.bike_id;
+
+  Bike.findOneAndUpdate({_id: bike_id , owner: owner_id}, {$set: req.body}, {new: true}, function(err, bike){
+    console.log(bike);
+    res.json({ results: bike });
   });
 };

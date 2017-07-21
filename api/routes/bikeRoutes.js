@@ -9,4 +9,8 @@ module.exports = function(app) {
   app
     .route('/owner/:id/bikes')
     .get(bikeCtrl.list_all_bikes);
+
+  app
+    .route('/owner/:id/bikes/:bike_id')
+    .post(bikeCtrl.edit_a_bike);
 };
