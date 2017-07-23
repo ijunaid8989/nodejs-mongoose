@@ -43,7 +43,18 @@ var bikeSchema = new Schema({
   updated_at: {
     type: Date,
     default: Date.now
-  }
+  },
+  images: [{
+    image_string: {
+      type: String,
+      required: [true, 'Image cannot be blank.']
+    },
+    _type: {
+      type: String,
+      enum: ['COVER', 'NORMAL'],
+      default: 'NORMAL'
+    }
+  }]
 });
 
 module.exports = mongoose.model('Bikes', bikeSchema);
