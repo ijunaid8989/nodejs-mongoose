@@ -61,3 +61,16 @@ exports.edit_a_bike = function(req, res) {
     res.json({ results: bike });
   });
 };
+
+
+exports.update_cords_to_bike = function(req, res) {
+
+  var owner_id = req.params.id,
+      bike_id  = req.params.bike_id;
+
+  Bike.findOneAndUpdate({_id: bike_id , owner: owner_id}, {$set: req.body}, {new: true}, function(err, bike){
+    if (err) { res.json({ ErrorFound: err }); }
+    console.log(bike);
+    res.json({ cord_update: "done" });
+  });
+};

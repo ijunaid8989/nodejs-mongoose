@@ -13,4 +13,8 @@ module.exports = function(app) {
   app
     .route('/owner/:id/bikes/:bike_id')
     .put(bikeCtrl.edit_a_bike);
+
+  app
+    .route('/:id/:bike_id/cords')
+    .post(bikeCtrl.update_cords_to_bike);
 };
