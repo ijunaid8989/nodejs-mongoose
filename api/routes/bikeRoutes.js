@@ -12,5 +12,5 @@ module.exports = function(app) {
 
   app
     .route('/owner/:id/bikes/:bike_id')
-    .post(bikeCtrl.edit_a_bike);
+    .put(bikeCtrl.edit_a_bike);
 };
