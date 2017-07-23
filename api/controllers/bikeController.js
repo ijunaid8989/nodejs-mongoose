@@ -39,18 +39,13 @@ exports.create_a_bike = function(req, res) {
   });
 };
 
-function appendObjTo(thatArray, objToAppend) {
-    return Object.freeze(thatArray.concat(objToAppend));
-}
-
 exports.list_all_bikes = function(req, res) {
   console.log(req.params.id)
 
   var owner_id = req.params.id;
 
   Bike.find({owner: owner_id}, function(err, bikes){
-    console.log(bikes);
-    res.json({ results: bikes });
+    res.json({ bikes: bikes });
   });
 };
 
