@@ -48,7 +48,11 @@ var ownerSchema = new Schema({
     type: String,
     enum: ['LOCAL', 'FB', 'GPLUS'],
     default: 'LOCAL'
-  }
+  },
+  bikes: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Bikes'
+  }]
 });
 
 ownerSchema.path('email').validate(function(value, done) {

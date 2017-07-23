@@ -2,25 +2,16 @@
 
 var mongoose  = require('mongoose'),
     Bike      = mongoose.model('Bikes'),
-    Image     = mongoose.model('Images'),
+    Owner     = mongoose.model('Owners'),
+    async     = require('async'),
     allImages = [];
 
 exports.create_a_bike = function(req, res) {
 
   console.log(req.body);
-
+  var owner_id = req.body.owner;
   var newBike = new Bike(req.body);
-  // var newImages = new Image({ image_string: "Hello", });
-  var newImageParams = [
-    {
-      image_string: "hello",
-      _type: "NORMAL"
-    },
-    {
-      image_string: "hello",
-      _type: "NORMAL"
-    }
-  ]
+
   var throwErrors = []
 
   newBike.save(function(err, bike) {
@@ -35,19 +26,16 @@ exports.create_a_bike = function(req, res) {
       return res.json({message: throwErrors});
     }
 
-    if (newImageParams) {
-      for (var i = newImageParams.length - 1; i >= 0; i--) {
-        const image = Object.assign(newImageParams[i], {bike: bike._id});
-        var newImage = new Image(image);
-        allImages.push(image);
-        newImage.save(function(err, image){
-          console.log(image);
-          console.log(allImages);
-        });
-      }
-    }
+    Owner.update(
+       { "_id": owner_id},
+       { "$push": { "bikes": bike._id } },
+       function (err, raw) {
+           if (err) return handleError(err);
+           console.log('The raw response from Mongo was ', raw);
+       }
+    );
 
-    res.json({bike: bike, images: allImages});
+    res.json({bike: bike});
   });
 };
 

@@ -4,7 +4,6 @@ var express    = require('express'),
     mongoose   = require('mongoose'),
     Owner      = require('./api/models/ownerModel'),
     Bike      = require('./api/models/bikeModel'),
-    Image      = require('./api/models/imageModel'),
     bodyParser = require('body-parser');
   
 mongoose.Promise = global.Promise;

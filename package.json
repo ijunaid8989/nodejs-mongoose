@@ -9,6 +9,7 @@
   "author": "Junaid Farooq",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.5.0",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
