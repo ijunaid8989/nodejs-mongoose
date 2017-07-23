@@ -16,6 +16,7 @@ exports.create_a_bike = function(req, res) {
 
   newBike.save(function(err, bike) {
     if (err) {
+      console.log(err);
       var errors = err.errors
       for (var key in errors) {
         if (errors.hasOwnProperty(key)) {

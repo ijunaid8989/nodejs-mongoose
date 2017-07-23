@@ -7,6 +7,10 @@ var bikeSchema = new Schema({
     type: String,
     required: [true, 'Bike name cannot be blank.']
   },
+  loc: {
+    type: [Number],  // [<longitude>, <latitude>]
+    default: [0, 0]
+  },
   owner: {
     type: Schema.Types.ObjectId,
     ref: 'Owners',
