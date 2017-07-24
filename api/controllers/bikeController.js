@@ -46,6 +46,9 @@ exports.list_all_bikes = function(req, res) {
   var owner_id = req.params.id;
 
   Bike.find({owner: owner_id}, function(err, bikes){
+    if (err) {
+      res.json({ Errors: err.errors });
+    }
     res.json({ bikes: bikes });
   });
 };
@@ -57,7 +60,9 @@ exports.edit_a_bike = function(req, res) {
       bike_id  = req.params.bike_id;
 
   Bike.findOneAndUpdate({_id: bike_id , owner: owner_id}, {$set: req.body}, {new: true}, function(err, bike){
-    console.log(bike);
+    if (err) {
+      res.json({ Errors: err.errors });
+    }
     res.json({ results: bike });
   });
 };
@@ -69,7 +74,7 @@ exports.update_cords_to_bike = function(req, res) {
       bike_id  = req.params.bike_id;
 
   Bike.findOneAndUpdate({_id: bike_id , owner: owner_id}, {$set: req.body}, {new: true}, function(err, bike){
-    if (err) { res.json({ ErrorFound: err }); }
+    if (err) { res.json({ ErrorFound: err.errors }); }
     console.log(bike);
     res.json({ cord_update: "done" });
   });
