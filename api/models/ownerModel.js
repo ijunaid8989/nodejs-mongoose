@@ -94,5 +94,4 @@ ownerSchema.methods.comparePassword = function(candidatePassword, cb) {
     });
 };
 
-
 module.exports = mongoose.model('Owners', ownerSchema);

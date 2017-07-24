@@ -56,20 +56,29 @@ exports.sign_owner_in = function(req, res) {
 
   var email = req.body.email;
   var password = req.body.password;
+  var auth_token = req.body.auth_token;
 
   Owner.findOne({email: email}, function(err, owner) {
 
     if (!owner) { return res.json({message: "Please enter correct Email."});}
 
-    owner.comparePassword(password, function(err, isMatch) {
-        if(err) return next(err);
+    if (!password) {
+      if (auth_token == owner.auth_token) {
+        return res.json({message: true});
+      } else {
+        return res.json({message: "Please enter correct auth_token."});
+      }
+    } else {
+      owner.comparePassword(password, function(err, isMatch) {
+          if(err) return next(err);
 
-        if (isMatch) {
-          return res.json({message: true});
-        } else {
-          return res.json({message: "Please enter correct Password."});
-        }
-    });
+          if (isMatch) {
+            return res.json({message: true});
+          } else {
+            return res.json({message: "Please enter correct Password."});
+          }
+      });
+    }
   });
 };
 
