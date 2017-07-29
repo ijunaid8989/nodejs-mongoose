@@ -14,8 +14,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-var ownerRoutes = require('./api/routes/ownerRoutes')(app);
-var bikeRoutes = require('./api/routes/bikeRoutes')(app);
+var ownerRoutes   = require('./api/routes/ownerRoutes')(app);
+var bikeRoutes    = require('./api/routes/bikeRoutes')(app);
+var defaultRoutes = require('./api/routes/defaultRoutes')(app);
 
 app.listen(port);
 
