@@ -24,7 +24,7 @@ exports.create_a_bike = function(req, res) {
           console.log(errors[key].message);
         }
       }
-      return res.json({message: throwErrors});
+      return res.status(400).json({message: throwErrors});
     }
 
     Owner.update(
@@ -36,7 +36,7 @@ exports.create_a_bike = function(req, res) {
        }
     );
 
-    res.json({bike: bike});
+    res.status(201).json({bike: bike});
   });
 };
 
@@ -47,9 +47,9 @@ exports.list_all_bikes = function(req, res) {
 
   Bike.find({owner: owner_id}, function(err, bikes){
     if (err) {
-      res.json({ Errors: err.errors });
+      res.status(400).json({ Errors: err.errors });
     }
-    res.json({ bikes: bikes });
+    res.status(200).json({ bikes: bikes });
   });
 };
 
@@ -61,9 +61,9 @@ exports.edit_a_bike = function(req, res) {
 
   Bike.findOneAndUpdate({_id: bike_id , owner: owner_id}, {$set: req.body}, {new: true}, function(err, bike){
     if (err) {
-      res.json({ Errors: err.errors });
+      res.status(400).json({ Errors: err.errors });
     }
-    res.json({ results: bike });
+    res.status(200).json({ results: bike });
   });
 };
 
@@ -74,8 +74,8 @@ exports.update_cords_to_bike = function(req, res) {
       bike_id  = req.params.bike_id;
 
   Bike.findOneAndUpdate({_id: bike_id , owner: owner_id}, {$set: req.body}, {new: true}, function(err, bike){
-    if (err) { res.json({ ErrorFound: err.errors }); }
+    if (err) { res.status(400).json({ ErrorFound: err.errors }); }
     console.log(bike);
-    res.json({ cord_update: "done" });
+    res.status(201).json({ cord_update: "done" });
   });
 };

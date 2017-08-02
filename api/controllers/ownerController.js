@@ -18,11 +18,11 @@ exports.create_an_owner = function(req, res) {
 
   if (auth_type && auth_type != "LOCAL") {
     if (!auth_token) {
-      return res.json({message: "No Auth Token."});
+      return res.status(400).json({message: "No Auth Token."});
     }
     var newOwner = new Owner({email: email, auth_type: auth_type, auth_token: auth_token});
   } else {
-    if (password.length <= 5) { return res.json({message: "Password should be greater than 5 characters."}); }
+    if (password.length <= 5) { return res.status(400).json({message: "Password should be greater than 5 characters."}); }
     var newOwner = new Owner(req.body);
   }
 
@@ -37,7 +37,7 @@ exports.create_an_owner = function(req, res) {
         case 'ValidationError':
           switch (err.errors.email.message) {
             case 'exists':
-              res.json({message: "Email already in use."});
+              res.status(400).json({message: "Email already in use."});
               break;
           }
         break;
@@ -48,7 +48,7 @@ exports.create_an_owner = function(req, res) {
 
     // if (err)
     //   res.send(err);
-    res.json(owner);
+    res.status(201).json(owner);
   });
 };
 
@@ -60,22 +60,22 @@ exports.sign_owner_in = function(req, res) {
 
   Owner.findOne({email: email}, function(err, owner) {
 
-    if (!owner) { return res.json({message: "Please enter correct Email."});}
+    if (!owner) { return res.status(400).json({message: "Please enter correct Email."});}
 
     if (!password) {
       if (auth_token == owner.auth_token) {
-        return res.json({message: true});
+        return res.status(201).json({message: true});
       } else {
-        return res.json({message: "Please enter correct auth_token."});
+        return res.status(400).json({message: "Please enter correct auth_token."});
       }
     } else {
       owner.comparePassword(password, function(err, isMatch) {
           if(err) return next(err);
 
           if (isMatch) {
-            return res.json({message: true});
+            return res.status(201).json({message: true});
           } else {
-            return res.json({message: "Please enter correct Password."});
+            return res.status(400).json({message: "Please enter correct Password."});
           }
       });
     }
