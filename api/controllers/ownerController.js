@@ -64,7 +64,7 @@ exports.sign_owner_in = function(req, res) {
 
     if (!password) {
       if (auth_token == owner.auth_token) {
-        return res.status(201).json({message: true});
+        return res.status(201).json({message: true, owner: owner});
       } else {
         return res.status(400).json({message: "Please enter correct auth_token."});
       }
@@ -73,7 +73,7 @@ exports.sign_owner_in = function(req, res) {
           if(err) return next(err);
 
           if (isMatch) {
-            return res.status(201).json({message: true});
+            return res.status(201).json({message: true, owner: owner});
           } else {
             return res.status(400).json({message: "Please enter correct Password."});
           }
